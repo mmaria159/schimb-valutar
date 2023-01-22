@@ -1,9 +1,9 @@
 This project represents the currency exchange from any currency to lei
 At the moment we have the following functionalities:
-- add currency_rate
-- get currency_rate
-- add currency_exchange
-- change the amount that was added
+- add exchange_rate
+- get exchange_rate
+- add exchange_currency
+- change the amount that was added in Cash
 
 We also have connections with Customers and Employees
 The transactions preserve the identity of both parties,
