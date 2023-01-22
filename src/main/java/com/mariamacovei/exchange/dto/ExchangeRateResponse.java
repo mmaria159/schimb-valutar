@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
-public class ExchangeRateResponse {
+public final class ExchangeRateResponse {
     private final BigDecimal rate;
     private final BigDecimal exchange;
     private final LocalDateTime createdAt;

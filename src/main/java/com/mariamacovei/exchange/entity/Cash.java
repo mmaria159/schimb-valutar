@@ -23,4 +23,9 @@ public class Cash {
     @ManyToOne(cascade = {PERSIST, MERGE, REMOVE, REFRESH, DETACH}, optional = false)
     @JoinColumn(name = "exchange_rate_id", nullable = false)
     private ExchangeRate exchangeRate;
+
+    public Cash(BigDecimal amountToExchange, ExchangeRate exchangeRate) {
+        this.amountToExchange = amountToExchange;
+        this.exchangeRate = exchangeRate;
+    }
 }
