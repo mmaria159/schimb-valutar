@@ -28,4 +28,10 @@ public class Cash {
         this.amountToExchange = amountToExchange;
         this.exchangeRate = exchangeRate;
     }
+
+    public Cash(Long id, BigDecimal amountToExchange, ExchangeRate exchangeRate) {
+        this.id = id;
+        this.amountToExchange = amountToExchange;
+        this.exchangeRate = exchangeRate;
+    }
 }
