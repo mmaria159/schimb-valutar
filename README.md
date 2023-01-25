@@ -36,3 +36,4 @@ so we can generate reports in the future!
    "cashId": 1,
    "amount": 20.20
    }`
+   ![img.png](img.png)
