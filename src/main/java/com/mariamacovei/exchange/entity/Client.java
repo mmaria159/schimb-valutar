@@ -23,4 +23,12 @@ public class Client {
     private String email;
     private String phone;
     private String idnp;
+
+    public Client(String firstName, String lastName, String email, String phone, String idnp) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.idnp = idnp;
+    }
 }
