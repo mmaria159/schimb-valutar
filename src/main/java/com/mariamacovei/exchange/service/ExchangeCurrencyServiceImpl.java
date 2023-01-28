@@ -2,15 +2,15 @@ package com.mariamacovei.exchange.service;
 
 import com.mariamacovei.exchange.dto.ExchangeCurrencyRequest;
 import com.mariamacovei.exchange.entity.*;
+import com.mariamacovei.exchange.exception.ClientNotFoundException;
 import com.mariamacovei.exchange.exception.CurrencyCodeNotFoundException;
+import com.mariamacovei.exchange.exception.EmployeeNotFoundException;
 import com.mariamacovei.exchange.exception.ExchangeRateNotFoundException;
-import com.mariamacovei.exchange.exception.NotFoundAnyEmployees;
 import com.mariamacovei.exchange.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -24,8 +24,11 @@ public class ExchangeCurrencyServiceImpl implements ExchangeCurrencyService {
 
     @Override
     public Long addExchangeCurrency(ExchangeCurrencyRequest request) {
-        Client client = getRandomClient();
-        Employee employee = getRandomEmployee();
+        Client client = clientRepository.findById(request.getClientId())
+                .orElseThrow(() -> new ClientNotFoundException("Client with id " + request.getClientId() + " wasn't found"));
+
+        Employee employee = employeeRepository.findById(request.getEmployeeId())
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee not found by id: " + request.getEmployeeId()));
 
         CurrencyDictionary currencyDictionary = currencyDictionaryRepository.findCurrencyDictionaryByCode(request.getCurrencyCode())
                 .orElseThrow(() -> new CurrencyCodeNotFoundException("Currency not found by code: " + request.getCurrencyCode()));
@@ -45,27 +48,5 @@ public class ExchangeCurrencyServiceImpl implements ExchangeCurrencyService {
         );
 
         return exchangeCurrencyRepository.save(currencyExchange).getId();
-    }
-
-    private Employee getRandomEmployee() {
-        List<Employee> employees = employeeRepository.findAll();
-
-        if (employees.isEmpty()) {
-            throw new NotFoundAnyEmployees("Not found any employees");
-        }
-
-        int randomId = (int) ((Math.random() * employees.size()) + 0);
-        return employees.get(randomId);
-    }
-
-    private Client getRandomClient() {
-        List<Client> clients = clientRepository.findAll();
-
-        if (clients.isEmpty()) {
-            throw new NotFoundAnyEmployees("Not found any employees");
-        }
-
-        int randomId = (int) ((Math.random() * clients.size()) + 0);
-        return clients.get(randomId);
     }
 }

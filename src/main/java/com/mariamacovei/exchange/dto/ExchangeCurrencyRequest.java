@@ -1,16 +1,21 @@
 package com.mariamacovei.exchange.dto;
 
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 
 @Getter
 @RequiredArgsConstructor
 public final class ExchangeCurrencyRequest {
-    @NonNull
+    @NotBlank(message = "currencyCode is mandatory")
     private final String currencyCode;
-    @NonNull
+    @NotBlank(message = "amountToExchange is mandatory")
     private final BigDecimal amountToExchange;
+    @NotBlank(message = "clientId is mandatory")
+    private final Long clientId;
+    @NotBlank(message = "employeeId is mandatory")
+    private final Long employeeId;
+
 }
