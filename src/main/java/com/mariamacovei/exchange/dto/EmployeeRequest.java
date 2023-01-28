@@ -1,24 +1,24 @@
 package com.mariamacovei.exchange.dto;
 
 import lombok.Getter;
-import lombok.Setter;
+import lombok.RequiredArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Getter
-@Setter
-public class EmployeeRequest {
+@RequiredArgsConstructor
+public final class EmployeeRequest {
 
     @NotBlank(message = "firstName is mandatory")
-    private String firstName;
+    private final String firstName;
     @NotBlank(message = "lastName is mandatory")
-    private String lastName;
+    private final String lastName;
     @NotBlank(message = "email is mandatory")
     @Email
-    private String email;
+    private final String email;
     @NotBlank(message = "phone is mandatory")
-    private String phone;
+    private final String phone;
     @NotBlank(message = "function is mandatory")
-    private String function;
+    private final String function;
 }
