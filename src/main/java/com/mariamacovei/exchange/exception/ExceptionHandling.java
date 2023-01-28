@@ -20,9 +20,10 @@ public class ExceptionHandling {
 
     @ExceptionHandler(value = {ExchangeRateNotFoundException.class,
             CashNotFoundException.class,
-            CurrencyCodeNoteFoundException.class,
+            CurrencyCodeNotFoundException.class,
             NotFoundAnyEmployees.class,
-            EmployeeNoteFoundException.class})
+            EmployeeNotFoundException.class,
+            ClientNotFoundException.class})
     public ResponseEntity<Object> handleExchangeRateNotFoundException(
             RuntimeException ex) {
 

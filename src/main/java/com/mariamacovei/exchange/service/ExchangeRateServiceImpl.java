@@ -5,7 +5,7 @@ import com.mariamacovei.exchange.dto.ExchangeRateResponse;
 import com.mariamacovei.exchange.entity.CurrencyDictionary;
 import com.mariamacovei.exchange.entity.Employee;
 import com.mariamacovei.exchange.entity.ExchangeRate;
-import com.mariamacovei.exchange.exception.CurrencyCodeNoteFoundException;
+import com.mariamacovei.exchange.exception.CurrencyCodeNotFoundException;
 import com.mariamacovei.exchange.exception.ExchangeRateNotFoundException;
 import com.mariamacovei.exchange.exception.NotFoundAnyEmployees;
 import com.mariamacovei.exchange.repository.CurrencyDictionaryRepository;
@@ -29,7 +29,7 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
         CurrencyDictionary currencyDictionary = currencyDictionaryRepository
                 .findCurrencyDictionaryByCode(request.getCurrencyCode())
                 .orElseThrow(() ->
-                        new CurrencyCodeNoteFoundException("Currency not found by code: " + request.getCurrencyCode()));
+                        new CurrencyCodeNotFoundException("Currency not found by code: " + request.getCurrencyCode()));
 
         ExchangeRate exchangeRate = new ExchangeRate(
                 request.getRate(),
@@ -43,7 +43,7 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
     @Override
     public ExchangeRateResponse getExchangeRate(String currencyCode) {
         CurrencyDictionary currencyDictionary = currencyDictionaryRepository.findCurrencyDictionaryByCode(currencyCode)
-                .orElseThrow(() -> new CurrencyCodeNoteFoundException("Currency not found by code: " + currencyCode));
+                .orElseThrow(() -> new CurrencyCodeNotFoundException("Currency not found by code: " + currencyCode));
 
         ExchangeRate exchangeRate = exchangeRateRepository.findLastExchangeRateByCurrencyId(currencyDictionary.getId())
                 .orElseThrow(() -> new ExchangeRateNotFoundException("Exchange rate not found by code: " + currencyCode));

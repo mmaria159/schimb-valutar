@@ -2,7 +2,7 @@ package com.mariamacovei.exchange.service;
 
 import com.mariamacovei.exchange.dto.ExchangeCurrencyRequest;
 import com.mariamacovei.exchange.entity.*;
-import com.mariamacovei.exchange.exception.CurrencyCodeNoteFoundException;
+import com.mariamacovei.exchange.exception.CurrencyCodeNotFoundException;
 import com.mariamacovei.exchange.exception.ExchangeRateNotFoundException;
 import com.mariamacovei.exchange.exception.NotFoundAnyEmployees;
 import com.mariamacovei.exchange.repository.*;
@@ -28,7 +28,7 @@ public class ExchangeCurrencyServiceImpl implements ExchangeCurrencyService {
         Employee employee = getRandomEmployee();
 
         CurrencyDictionary currencyDictionary = currencyDictionaryRepository.findCurrencyDictionaryByCode(request.getCurrencyCode())
-                .orElseThrow(() -> new CurrencyCodeNoteFoundException("Currency not found by code: " + request.getCurrencyCode()));
+                .orElseThrow(() -> new CurrencyCodeNotFoundException("Currency not found by code: " + request.getCurrencyCode()));
 
         ExchangeRate exchangeRate = exchangeRateRepository.findLastExchangeRateByCurrencyId(currencyDictionary.getId())
                 .orElseThrow(() -> new ExchangeRateNotFoundException("Exchange rate not found by code: " + request.getCurrencyCode()));
