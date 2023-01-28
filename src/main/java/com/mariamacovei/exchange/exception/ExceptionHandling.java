@@ -18,7 +18,11 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 @ControllerAdvice
 public class ExceptionHandling {
 
-    @ExceptionHandler(value = {ExchangeRateNotFoundException.class, CashNotFoundException.class, CurrencyCodeNoteFoundException.class, NotFoundAnyEmployees.class})
+    @ExceptionHandler(value = {ExchangeRateNotFoundException.class,
+            CashNotFoundException.class,
+            CurrencyCodeNoteFoundException.class,
+            NotFoundAnyEmployees.class,
+            EmployeeNoteFoundException.class})
     public ResponseEntity<Object> handleExchangeRateNotFoundException(
             RuntimeException ex) {
 
