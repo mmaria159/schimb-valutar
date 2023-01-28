@@ -26,8 +26,10 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
 
     @Override
     public Long addExchangeRate(ExchangeRateRequest request) {
-        CurrencyDictionary currencyDictionary = currencyDictionaryRepository.findCurrencyDictionaryByCode(request.getCurrencyCode())
-                .orElseThrow(() -> new CurrencyCodeNoteFoundException("Currency not found by code: " + request.getCurrencyCode()));
+        CurrencyDictionary currencyDictionary = currencyDictionaryRepository
+                .findCurrencyDictionaryByCode(request.getCurrencyCode())
+                .orElseThrow(() ->
+                        new CurrencyCodeNoteFoundException("Currency not found by code: " + request.getCurrencyCode()));
 
         ExchangeRate exchangeRate = new ExchangeRate(
                 request.getRate(),

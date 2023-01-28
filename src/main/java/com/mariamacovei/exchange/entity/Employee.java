@@ -23,4 +23,12 @@ public class Employee {
     private String email;
     private String phone;
     private String function;
+
+    public Employee(String firstName, String lastName, String email, String phone, String function) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.function = function;
+    }
 }
