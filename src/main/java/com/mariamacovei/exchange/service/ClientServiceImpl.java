@@ -2,6 +2,7 @@ package com.mariamacovei.exchange.service;
 
 import com.mariamacovei.exchange.dto.ClientRequest;
 import com.mariamacovei.exchange.entity.Client;
+import com.mariamacovei.exchange.exception.ClientNotFoundException;
 import com.mariamacovei.exchange.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,4 +24,9 @@ public class ClientServiceImpl implements ClientService {
         return clientRepository.save(client).getId();
     }
 
+    @Override
+    public Client findClient(Long id) {
+        return clientRepository.findById(id).orElseThrow(() ->
+                new ClientNotFoundException("Client with id " + id + " wasn't found"));
+    }
 }
