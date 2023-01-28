@@ -6,15 +6,13 @@ import com.mariamacovei.exchange.entity.CurrencyDictionary;
 import com.mariamacovei.exchange.entity.Employee;
 import com.mariamacovei.exchange.entity.ExchangeRate;
 import com.mariamacovei.exchange.exception.CurrencyCodeNotFoundException;
+import com.mariamacovei.exchange.exception.EmployeeNotFoundException;
 import com.mariamacovei.exchange.exception.ExchangeRateNotFoundException;
-import com.mariamacovei.exchange.exception.NotFoundAnyEmployees;
 import com.mariamacovei.exchange.repository.CurrencyDictionaryRepository;
 import com.mariamacovei.exchange.repository.EmployeeRepository;
 import com.mariamacovei.exchange.repository.ExchangeRateRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -31,11 +29,14 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
                 .orElseThrow(() ->
                         new CurrencyCodeNotFoundException("Currency not found by code: " + request.getCurrencyCode()));
 
+        Employee employee = employeeRepository.findById(request.getEmployeeId())
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee not found by id: " + request.getEmployeeId()));
+
         ExchangeRate exchangeRate = new ExchangeRate(
                 request.getRate(),
                 request.getExchange(),
                 currencyDictionary,
-                getRandomEmployee());
+                employee);
 
         return exchangeRateRepository.save(exchangeRate).getId();
     }
@@ -54,16 +55,5 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
                 exchangeRate.getCreatedAt(),
                 exchangeRate.getCurrencyDictionary()
         );
-    }
-
-    private Employee getRandomEmployee() {
-        List<Employee> employees = employeeRepository.findAll();
-
-        if (employees.isEmpty()) {
-            throw new NotFoundAnyEmployees("Not found any employees");
-        }
-
-        int randomId = (int) ((Math.random() * employees.size()) + 0);
-        return employees.get(randomId);
     }
 }
