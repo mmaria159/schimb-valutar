@@ -29,4 +29,24 @@ public class ClientServiceImpl implements ClientService {
         return clientRepository.findById(id).orElseThrow(() ->
                 new ClientNotFoundException("Client with id " + id + " wasn't found"));
     }
+
+    @Override
+    public Long updateClient(Long clientId, ClientRequest clientRequest) {
+        Client client = clientRepository.findById(clientId).orElseThrow(() ->
+                new ClientNotFoundException("Client with id " + clientId + " wasn't found"));
+        Client newClient = new Client(
+                client.getId(),
+                clientRequest.getFirstName(),
+                clientRequest.getLastName(),
+                clientRequest.getEmail(),
+                clientRequest.getPhone(),
+                clientRequest.getIdnp());
+
+        clientRepository.save(newClient);
+
+        return newClient.getId();
+    }
+
+
 }
+

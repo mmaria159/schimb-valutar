@@ -6,4 +6,5 @@ import com.mariamacovei.exchange.entity.Client;
 public interface ClientService {
     Long addClient(ClientRequest clientRequest);
     Client findClient(Long id);
+    Long updateClient(Long id, ClientRequest clientRequest);
 }

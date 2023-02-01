@@ -31,4 +31,13 @@ public class Client {
         this.phone = phone;
         this.idnp = idnp;
     }
+
+    public Client(Long id, String firstName, String lastName, String email, String phone, String idnp) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.idnp = idnp;
+    }
 }
