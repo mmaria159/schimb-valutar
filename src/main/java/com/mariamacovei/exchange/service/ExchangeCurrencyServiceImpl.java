@@ -1,6 +1,7 @@
 package com.mariamacovei.exchange.service;
 
 import com.mariamacovei.exchange.dto.ExchangeCurrencyRequest;
+import com.mariamacovei.exchange.dto.ExchangeCurrencyResponse;
 import com.mariamacovei.exchange.entity.*;
 import com.mariamacovei.exchange.exception.ClientNotFoundException;
 import com.mariamacovei.exchange.exception.CurrencyCodeNotFoundException;
@@ -11,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -49,4 +52,19 @@ public class ExchangeCurrencyServiceImpl implements ExchangeCurrencyService {
 
         return exchangeCurrencyRepository.save(currencyExchange).getId();
     }
+
+    @Override
+    public List<ExchangeCurrencyResponse> findCurrencyExchangeByClientId(Long id) {
+        clientRepository.findById(id)
+                .orElseThrow(() -> new ClientNotFoundException("Client with id " + id + " wasn't found"));
+
+        return exchangeCurrencyRepository.findCurrencyExchangeByClientId(id)
+                .stream()
+                .map(currency -> new ExchangeCurrencyResponse(
+                        currency.getId(),
+                        currency.getCreatedAt(),
+                        currency.getAmountReceived()))
+                .collect(Collectors.toList());
+    }
 }
+
