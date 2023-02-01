@@ -31,4 +31,13 @@ public class Employee {
         this.phone = phone;
         this.function = function;
     }
+
+    public Employee(Long id, String firstName, String lastName, String email, String phone, String function) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.function = function;
+    }
 }

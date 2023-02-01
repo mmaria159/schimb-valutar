@@ -30,4 +30,22 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         return employee.getId();
     }
+
+    @Override
+    public Long updateEmployee(Long employeeId, EmployeeRequest request) {
+        Employee employee = employeeRepository.findById(employeeId).orElseThrow(() ->
+                new EmployeeNotFoundException("Employee not found with id: " + employeeId));
+
+        Employee newEmployee = new Employee(
+                employee.getId(),
+                request.getFirstName(),
+                request.getLastName(),
+                request.getEmail(),
+                request.getPhone(),
+                request.getFunction());
+
+        employeeRepository.save(newEmployee);
+
+        return newEmployee.getId();
+    }
 }

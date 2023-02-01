@@ -29,4 +29,11 @@ public class EmployeeController {
         Long employeeId = employeeService.addEmployee(request);
         return new ResponseEntity<>(employeeId, CREATED);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Long> updateEmployee(@PathVariable Long id,
+                                               @RequestBody @Valid EmployeeRequest request) {
+        Long employeeId = employeeService.updateEmployee(id, request);
+        return new ResponseEntity<>(employeeId, OK);
+    }
 }

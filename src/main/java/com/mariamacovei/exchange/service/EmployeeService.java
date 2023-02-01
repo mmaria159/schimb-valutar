@@ -6,4 +6,6 @@ import com.mariamacovei.exchange.entity.Employee;
 public interface EmployeeService {
     Employee findEmployee(Long Id);
     Long addEmployee(EmployeeRequest employeeRequest);
+    Long updateEmployee(Long employeeId, EmployeeRequest employeeRequest);
+
 }
