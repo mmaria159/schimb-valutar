@@ -13,4 +13,6 @@ public interface ExchangeCurrencyRepository extends JpaRepository<CurrencyExchan
 //    @Query(value = "SELECT * FROM currency_exchange WHERE client_id = ?1", nativeQuery = true)
 //    @Query("SELECT ce FROM CurrencyExchange ce WHERE ce.client.id = ?1")
     List<CurrencyExchange> findCurrencyExchangeByClientId(Long clientId);
+
+    List<CurrencyExchange> findCurrencyExchangeByEmployeeId(Long employeeId);
 }

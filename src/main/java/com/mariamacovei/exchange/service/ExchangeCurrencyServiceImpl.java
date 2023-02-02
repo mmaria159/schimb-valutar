@@ -66,5 +66,18 @@ public class ExchangeCurrencyServiceImpl implements ExchangeCurrencyService {
                         currency.getAmountReceived()))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<ExchangeCurrencyResponse> findCurrencyExchangeByEmployeeId(Long id) {
+        employeeRepository.findById(id)
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee not found with id: " + id));
+
+        return exchangeCurrencyRepository.findCurrencyExchangeByEmployeeId(id)
+                .stream()
+                .map(currencyExchange -> new ExchangeCurrencyResponse(
+                        currencyExchange.getId(),
+                        currencyExchange.getCreatedAt(),
+                        currencyExchange.getAmountReceived())).collect(Collectors.toList());
+    }
 }
 

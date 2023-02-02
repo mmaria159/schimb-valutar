@@ -8,5 +8,7 @@ import java.util.List;
 public interface ExchangeCurrencyService {
 
     Long addExchangeCurrency(ExchangeCurrencyRequest request);
-   List<ExchangeCurrencyResponse> findCurrencyExchangeByClientId(Long id);
+
+    List<ExchangeCurrencyResponse> findCurrencyExchangeByClientId(Long id);
+    List<ExchangeCurrencyResponse> findCurrencyExchangeByEmployeeId(Long id);
 }
